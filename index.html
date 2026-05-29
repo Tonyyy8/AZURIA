@@ -917,96 +917,7 @@ function filterProducts(cat) {
 // ══════════════════════════════════════════
 // OPEN PRODUCT DETAIL
 // ══════════════════════════════════════════
-function openProduct(id) {
-  const p = products.find(x=>x.id===id);
-  if(!p) return;
-  currentPdpId = id;
-  pdpQty = 1;
-  pdpFromShop = document.getElementById('view-shop').classList.contains('active');
-
-  // Render label
-  const labelHtml = `
-    <div class="pdp-label-logo">
-      <svg width="40" height="52" viewBox="0 0 40 52" fill="none">
-        <path d="M20 2C20 2 4 18 4 32a16 16 0 0032 0C36 18 20 2 20 2Z" stroke="#1a2d45" stroke-width="1.4" fill="none"/>
-        <path d="M14 30 Q14 22 20 18 Q26 22 26 30" stroke="#c2ddf0" stroke-width="1" fill="none"/>
-      </svg>
-      <span class="pdp-label-logo-brand">AZURIA</span>
-      <span class="pdp-label-logo-sub">Botanical Cosmetics</span>
-    </div>
-    <div class="pdp-label-sep"></div>
-    <h2 class="pdp-label-name">${p.name}</h2>
-    ${p.name.includes('Collagen') || p.name.includes('Ceramide') ? `<p class="pdp-label-sub">${p.name.includes('Clay') ? 'Collagen, Peptide, Ceramides' : 'Ceramides & Collagen'}</p>` : ''}
-    <div class="pdp-label-sku">${p.sku}</div>
-    <p class="pdp-label-claims">${p.claims.join('<br>')}</p>
-    <div class="pdp-label-divider2"></div>
-    <div class="pdp-label-icons">
-      ${p.icons.map(ic=>`<div class="pdp-label-icon-item"><svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--navy);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round">${getIconSvg(ic.svg).replace(/<svg[^>]*>/,'').replace('</svg>','')}</svg><span class="pdp-label-icon-label">${ic.label}</span></div>`).join('')}
-    </div>
-    <p class="pdp-label-vol">${p.vol}</p>
-    <div class="pdp-label-botanical-deco">${getBotanicalSvg(p.botanical, 70)}</div>
-  `;
-  document.getElementById('pdp-label-content').innerHTML = labelHtml;
-
-  // Render info
-  const infoHtml = `
-    <p class="pdp-breadcrumb">Collection <span>/ ${p.cat} / ${p.name}</span></p>
-    <h1 class="pdp-name">${p.name}</h1>
-    <div class="pdp-sku-line">
-      <span class="pdp-sku-badge">${p.sku}</span>
-      ${p.organic !== 'N/A' ? `<span class="pdp-organic-badge">${p.organic} Organic</span>` : ''}
-    </div>
-    <div class="pdp-stars">★★★★★</div>
-    <div class="pdp-price-row">
-      <span class="pdp-price">€${p.price}</span>
-      <span class="pdp-vol">${p.vol}</span>
-    </div>
-    <p class="pdp-desc">${p.desc}</p>
-    <div class="pdp-actions">
-      <div class="pdp-qty">
-        <button onclick="changePdpQty(-1)">−</button>
-        <span id="pdp-qty-display">1</span>
-        <button onclick="changePdpQty(1)">+</button>
-      </div>
-      <button class="pdp-add-btn" id="pdp-add-btn" onclick="pdpAddToCart()">Add to Bag</button>
-      <button class="pdp-wishlist" title="Save to wishlist">♡</button>
-    </div>
-    <div class="pdp-tags">${p.tags.map(t=>`<span class="pdp-tag">${t}</span>`).join('')}</div>
-    <div class="pdp-accordion">
-      <div class="pdp-acc-item">
-        <div class="pdp-acc-header" onclick="toggleAcc(this)">Key Ingredients <span class="pdp-acc-icon">+</span></div>
-        <div class="pdp-acc-body"><div class="pdp-acc-content">${p.keyIngredients.map(i=>`<span style="display:inline-block;margin:4px 8px 4px 0;padding:5px 14px;background:var(--sky);font-size:12px;color:var(--slate);border:1px solid var(--glass-border)">${i}</span>`).join('')}</div></div>
-      </div>
-      <div class="pdp-acc-item">
-        <div class="pdp-acc-header" onclick="toggleAcc(this)">Full Description <span class="pdp-acc-icon">+</span></div>
-        <div class="pdp-acc-body"><div class="pdp-acc-content">${p.desc}</div></div>
-      </div>
-      <div class="pdp-acc-item">
-        <div class="pdp-acc-header" onclick="toggleAcc(this)">How to Use <span class="pdp-acc-icon">+</span></div>
-        <div class="pdp-acc-body"><div class="pdp-acc-content">Apply a small amount to clean skin. ${p.cat.includes('Face') ? 'Use as part of your morning or evening skincare routine.' : p.cat.includes('Hair') ? 'Apply to wet hair, massage gently, and rinse thoroughly.' : p.cat.includes('Body') ? 'Massage into skin using circular motions until fully absorbed.' : 'Apply and leave to absorb.'} Suitable for daily use.</div></div>
-      </div>
-      <div class="pdp-acc-item">
-        <div class="pdp-acc-header" onclick="toggleAcc(this)">Shipping & Returns <span class="pdp-acc-icon">+</span></div>
-        <div class="pdp-acc-body"><div class="pdp-acc-content">Free standard shipping on orders over €60. Express delivery available at checkout. Returns accepted within 30 days of purchase for unopened products. Please contact our team for assistance.</div></div>
-      </div>
-    </div>
-  `;
-  document.getElementById('pdp-info-content').innerHTML = infoHtml;
-
-  // Related products
-  const related = products.filter(x => x.id !== id && x.cat === p.cat).slice(0,4);
-  const fallback = products.filter(x => x.id !== id).slice(0,4);
-  const relatedList = related.length >= 2 ? related : fallback;
-  document.getElementById('related-grid').innerHTML = relatedList.slice(0,4).map(rp => renderProductCard(rp)).join('');
-
-  showView('pdp');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function goBackFromPDP() {
-  if(pdpFromShop) showView('shop');
-  else showView('home');
-}
+// openProduct and goBackFromPDP are defined in the URL ROUTER section below
 
 // ══════════════════════════════════════════
 // PDP QTY
@@ -1138,14 +1049,192 @@ function showToast(msg) {
 }
 
 // ══════════════════════════════════════════
-// VIEW ROUTER
+// URL SLUG HELPERS
 // ══════════════════════════════════════════
-function showView(viewName) {
+function toSlug(name) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+// Pre-build slug → id map for fast lookup
+const slugMap = {};
+products.forEach(p => { slugMap[toSlug(p.name)] = p.id; });
+
+// ══════════════════════════════════════════
+// HASH-BASED URL ROUTER
+// Routes:
+//   #/             → home
+//   #/shop         → shop
+//   #/shop?filter=Body  → shop filtered
+//   #/product/:slug → product detail page
+// ══════════════════════════════════════════
+function navigate(path, pushState = true) {
+  if (pushState) {
+    window.location.hash = path;
+  }
+  const [route, query] = path.replace(/^#?\/?/, '').split('?');
+  const parts = route.split('/');
+
+  // Update document title
+  document.title = 'AZURIA — Clean Botanical Skincare';
+
+  if (!route || route === '' || route === 'home') {
+    _activateView('home');
+    return;
+  }
+
+  if (parts[0] === 'shop') {
+    _activateView('shop');
+    if (query) {
+      const params = new URLSearchParams(query);
+      const filter = params.get('filter');
+      if (filter) setTimeout(() => filterProducts(filter), 50);
+    }
+    return;
+  }
+
+  if (parts[0] === 'product' && parts[1]) {
+    const slug = parts[1];
+    const id = slugMap[slug];
+    if (id) {
+      _openProductById(id);
+      return;
+    }
+  }
+
+  // Fallback: home
+  _activateView('home');
+}
+
+function _activateView(viewName) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + viewName).classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-  if(viewName==='shop') renderShop();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (viewName === 'shop') renderShop();
+  setTimeout(initReveal, 100);
 }
+
+// Public showView — now updates the URL hash
+function showView(viewName) {
+  const hashMap = { home: '/', shop: '/shop', pdp: null };
+  const path = hashMap[viewName];
+  if (path) navigate(path);
+}
+
+// ══════════════════════════════════════════
+// OPEN PRODUCT — with URL update
+// ══════════════════════════════════════════
+function openProduct(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  const slug = toSlug(p.name);
+  window.location.hash = `/product/${slug}`;
+  _openProductById(id);
+}
+
+function _openProductById(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  currentPdpId = id;
+  pdpQty = 1;
+  pdpFromShop = (window.location.hash.includes('shop') || document.getElementById('view-shop').classList.contains('active'));
+
+  document.title = `${p.name} — AZURIA Botanical Cosmetics`;
+
+  // Render label
+  const labelHtml = `
+    <div class="pdp-label-logo">
+      <svg width="40" height="52" viewBox="0 0 40 52" fill="none">
+        <path d="M20 2C20 2 4 18 4 32a16 16 0 0032 0C36 18 20 2 20 2Z" stroke="#1a2d45" stroke-width="1.4" fill="none"/>
+        <path d="M14 30 Q14 22 20 18 Q26 22 26 30" stroke="#c2ddf0" stroke-width="1" fill="none"/>
+      </svg>
+      <span class="pdp-label-logo-brand">AZURIA</span>
+      <span class="pdp-label-logo-sub">Botanical Cosmetics</span>
+    </div>
+    <div class="pdp-label-sep"></div>
+    <h2 class="pdp-label-name">${p.name}</h2>
+    ${p.name.includes('Collagen') || p.name.includes('Ceramide') ? `<p class="pdp-label-sub">${p.name.includes('Clay') ? 'Collagen, Peptide, Ceramides' : 'Ceramides & Collagen'}</p>` : ''}
+    <div class="pdp-label-sku">${p.sku}</div>
+    <p class="pdp-label-claims">${p.claims.join('<br>')}</p>
+    <div class="pdp-label-divider2"></div>
+    <div class="pdp-label-icons">
+      ${p.icons.map(ic=>`<div class="pdp-label-icon-item"><svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:var(--navy);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round">${getIconSvg(ic.svg).replace(/<svg[^>]*>/,'').replace('</svg>','')}</svg><span class="pdp-label-icon-label">${ic.label}</span></div>`).join('')}
+    </div>
+    <p class="pdp-label-vol">${p.vol}</p>
+    <div class="pdp-label-botanical-deco">${getBotanicalSvg(p.botanical, 70)}</div>
+  `;
+  document.getElementById('pdp-label-content').innerHTML = labelHtml;
+
+  // Render info
+  const infoHtml = `
+    <p class="pdp-breadcrumb">
+      <a href="#/shop" onclick="event.preventDefault();navigate('/shop')" style="color:var(--muted);text-decoration:none;cursor:pointer">Collection</a>
+      <span> / ${p.cat} / ${p.name}</span>
+    </p>
+    <h1 class="pdp-name">${p.name}</h1>
+    <div class="pdp-sku-line">
+      <span class="pdp-sku-badge">${p.sku}</span>
+      ${p.organic !== 'N/A' ? `<span class="pdp-organic-badge">${p.organic} Organic</span>` : ''}
+    </div>
+    <div class="pdp-stars">★★★★★</div>
+    <div class="pdp-price-row">
+      <span class="pdp-price">€${p.price}</span>
+      <span class="pdp-vol">${p.vol}</span>
+    </div>
+    <p class="pdp-desc">${p.desc}</p>
+    <div class="pdp-actions">
+      <div class="pdp-qty">
+        <button onclick="changePdpQty(-1)">−</button>
+        <span id="pdp-qty-display">1</span>
+        <button onclick="changePdpQty(1)">+</button>
+      </div>
+      <button class="pdp-add-btn" id="pdp-add-btn" onclick="pdpAddToCart()">Add to Bag</button>
+      <button class="pdp-wishlist" title="Save to wishlist">♡</button>
+    </div>
+    <div class="pdp-tags">${p.tags.map(t=>`<span class="pdp-tag">${t}</span>`).join('')}</div>
+    <div style="margin-top:16px;padding:14px 18px;background:var(--powder);border:1px solid var(--silver);font-size:11px;color:var(--muted);letter-spacing:1px">
+      🔗 Direct link: <span style="color:var(--slate);user-select:all">${window.location.origin}${window.location.pathname}#/product/${toSlug(p.name)}</span>
+    </div>
+    <div class="pdp-accordion" style="margin-top:20px">
+      <div class="pdp-acc-item">
+        <div class="pdp-acc-header" onclick="toggleAcc(this)">Key Ingredients <span class="pdp-acc-icon">+</span></div>
+        <div class="pdp-acc-body"><div class="pdp-acc-content">${p.keyIngredients.map(i=>`<span style="display:inline-block;margin:4px 8px 4px 0;padding:5px 14px;background:var(--sky);font-size:12px;color:var(--slate);border:1px solid var(--glass-border)">${i}</span>`).join('')}</div></div>
+      </div>
+      <div class="pdp-acc-item">
+        <div class="pdp-acc-header" onclick="toggleAcc(this)">Full Description <span class="pdp-acc-icon">+</span></div>
+        <div class="pdp-acc-body"><div class="pdp-acc-content">${p.desc}</div></div>
+      </div>
+      <div class="pdp-acc-item">
+        <div class="pdp-acc-header" onclick="toggleAcc(this)">How to Use <span class="pdp-acc-icon">+</span></div>
+        <div class="pdp-acc-body"><div class="pdp-acc-content">Apply a small amount to clean skin. ${p.cat.includes('Face') ? 'Use as part of your morning or evening skincare routine.' : p.cat.includes('Hair') ? 'Apply to wet hair, massage gently, and rinse thoroughly.' : p.cat.includes('Body') ? 'Massage into skin using circular motions until fully absorbed.' : 'Apply and leave to absorb.'} Suitable for daily use.</div></div>
+      </div>
+      <div class="pdp-acc-item">
+        <div class="pdp-acc-header" onclick="toggleAcc(this)">Shipping & Returns <span class="pdp-acc-icon">+</span></div>
+        <div class="pdp-acc-body"><div class="pdp-acc-content">Free standard shipping on orders over €60. Express delivery available at checkout. Returns accepted within 30 days of purchase for unopened products. Please contact our team for assistance.</div></div>
+      </div>
+    </div>
+  `;
+  document.getElementById('pdp-info-content').innerHTML = infoHtml;
+
+  // Related products
+  const related = products.filter(x => x.id !== id && x.cat === p.cat).slice(0,4);
+  const fallback = products.filter(x => x.id !== id).slice(0,4);
+  const relatedList = related.length >= 2 ? related : fallback;
+  document.getElementById('related-grid').innerHTML = relatedList.slice(0,4).map(rp => renderProductCard(rp)).join('');
+
+  _activateView('pdp');
+}
+
+function goBackFromPDP() {
+  if (pdpFromShop) navigate('/shop');
+  else navigate('/');
+}
+
+// ══════════════════════════════════════════
+// HASHCHANGE LISTENER — browser back/forward
+// ══════════════════════════════════════════
+window.addEventListener('hashchange', () => {
+  navigate(window.location.hash, false);
+});
 
 // ══════════════════════════════════════════
 // NEWSLETTER
@@ -1175,15 +1264,27 @@ const revealObs = new IntersectionObserver((entries) => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
 }, {threshold:0.1, rootMargin:'0px 0px -40px 0px'});
 function initReveal() {
-  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObs.observe(el));
 }
-initReveal();
 
 // ══════════════════════════════════════════
-// INIT
+// INIT — read URL hash on load
 // ══════════════════════════════════════════
 renderFeatured();
 initReveal();
+
+// Boot from current hash (supports direct links & refreshes)
+const initialHash = window.location.hash || '#/';
+navigate(initialHash, false);
 </script>
+
+<script
+  src="https://putdown-tightrope-showman.ngrok-free.dev/widget/widget.js"
+  data-api-key="YOUR_BRAND_API_KEY"
+  data-brand-name="Your Brand"
+  data-primary="#1e40af"
+  data-position="bottom-right"
+></script>
+
 </body>
 </html>
