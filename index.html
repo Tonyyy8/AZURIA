@@ -700,10 +700,6 @@ footer{background:var(--deep);color:rgba(255,255,255,.55);padding:72px 60px 40px
     <span class="shop-filters-label">Filter:</span>
     <button class="filter-btn active" onclick="filterProducts('All')">All (37)</button>
     <button class="filter-btn" onclick="filterProducts('Face')">Face Care</button>
-    <button class="filter-btn" onclick="filterProducts('Facial Care')">Facial Care</button>
-    <button class="filter-btn" onclick="filterProducts('Scrubs')">Scrubs</button>
-    <button class="filter-btn" onclick="filterProducts('Serums')">Serums</button>
-    <button class="filter-btn" onclick="filterProducts('Masks')">Masks</button>
     <button class="filter-btn" onclick="filterProducts('Body')">Body Care</button>
     <button class="filter-btn" onclick="filterProducts('Hair')">Hair Care</button>
     <button class="filter-btn" onclick="filterProducts('Lip')">Lip Care</button>
@@ -973,7 +969,7 @@ const products = [
     featured:true, bgGrad:"linear-gradient(145deg,#ddeef9,#f0f7fd)"
   },
   {
-    id:18, name:"Balancing Foam Cleanser", sku:"PLSF 2401", cat:"Facial Care", price:34,
+    id:18, name:"Balancing Foam Cleanser", sku:"PLSF 2401", cat:"Face Care", price:34,
     vol:"150 ml · 5.07 fl.oz", organic:"74.20%",
     claims:["Daily Foam Cleanser","Balancing Care","Fresh Finish"],
     icons:[{svg:"drop",label:"CLEANSE"},{svg:"balance",label:"BALANCE"},{svg:"refresh",label:"REFRESH"}],
@@ -984,7 +980,7 @@ const products = [
     featured:false, bgGrad:"linear-gradient(145deg,#e8f3fb,#f0f7fd)"
   },
   {
-    id:19, name:"Hydrating Gel Cleanser", sku:"PLSF 2402", cat:"Facial Care", price:32,
+    id:19, name:"Hydrating Gel Cleanser", sku:"PLSF 2402", cat:"Face Care", price:32,
     vol:"150 ml · 5.07 fl.oz", organic:"78.55%",
     claims:["Gel Cleanser","Hydration Boost","Soft Cleanse"],
     icons:[{svg:"drop",label:"CLEANSE"},{svg:"cloud",label:"SOFTEN"},{svg:"drop",label:"HYDRATE"}],
@@ -995,7 +991,7 @@ const products = [
     featured:false, bgGrad:"linear-gradient(145deg,#f0f7fd,#ddeef9)"
   },
   {
-    id:20, name:"Brightening Day Cream", sku:"PLSF 2403", cat:"Facial Care", price:58,
+    id:20, name:"Brightening Day Cream", sku:"PLSF 2403", cat:"Face Care", price:58,
     vol:"50 ml · 1.69 fl.oz", organic:"72.10%",
     claims:["Day Moisturizer","Brightening Care","Radiance Support"],
     icons:[{svg:"sun",label:"REVIVE"},{svg:"sparkle",label:"GLOW"},{svg:"leaf",label:"NOURISH"}],
@@ -1006,7 +1002,7 @@ const products = [
     featured:true, bgGrad:"linear-gradient(145deg,#eaf4fb,#f5fafd)"
   },
   {
-    id:21, name:"Calming Recovery Gel", sku:"PLSF 2404", cat:"Facial Care", price:42,
+    id:21, name:"Calming Recovery Gel", sku:"PLSF 2404", cat:"Face Care", price:42,
     vol:"50 ml · 1.69 fl.oz", organic:"83.40%",
     claims:["Calming Gel","Recovery Care","Redness Relief"],
     icons:[{svg:"shield",label:"SOOTHE"},{svg:"drop",label:"COOL"},{svg:"leaf",label:"CALM"}],
@@ -1017,7 +1013,7 @@ const products = [
     featured:false, bgGrad:"linear-gradient(145deg,#ddeef9,#eaf4fb)"
   },
   {
-    id:22, name:"Barrier Repair Moisturizer", sku:"PLSF 2405", cat:"Facial Care", price:62,
+    id:22, name:"Barrier Repair Moisturizer", sku:"PLSF 2405", cat:"Face Care", price:62,
     vol:"50 ml · 1.69 fl.oz", organic:"76.80%",
     claims:["Barrier Support","Deep Moisture","Repairing Care"],
     icons:[{svg:"shield",label:"REPAIR"},{svg:"cloud",label:"SOFTEN"},{svg:"drop",label:"HYDRATE"}],
@@ -1028,7 +1024,7 @@ const products = [
     featured:false, bgGrad:"linear-gradient(145deg,#e0eff9,#f0f7fd)"
   },
   {
-    id:23, name:"Bamboo Polishing Scrub", sku:"PLSF 2406", cat:"Scrubs", price:36,
+    id:23, name:"Bamboo Polishing Scrub", sku:"PLSF 2406", cat:"Face Care", price:36,
     vol:"100 g · 3.52 oz", organic:"65.30%",
     claims:["Bamboo Polish","Gentle Exfoliation","Smooth Finish"],
     icons:[{svg:"circle-dots",label:"EXFOLIATE"},{svg:"wave",label:"SMOOTH"},{svg:"refresh",label:"REFRESH"}],
@@ -1039,7 +1035,7 @@ const products = [
     featured:false, bgGrad:"linear-gradient(145deg,#ddeef9,#e8f3fb)"
   },
   {
-    id:24, name:"Rosehip Radiance Scrub", sku:"PLSF 2407", cat:"Scrubs", price:38,
+    id:24, name:"Rosehip Radiance Scrub", sku:"PLSF 2407", cat:"Face Care", price:38,
     vol:"100 g · 3.52 oz", organic:"70.15%",
     claims:["Rosehip Polish","Radiance Boost","Soft Exfoliation"],
     icons:[{svg:"sparkle",label:"GLOW"},{svg:"circle-dots",label:"EXFOLIATE"},{svg:"sun",label:"REVIVE"}],
@@ -1050,7 +1046,7 @@ const products = [
     featured:false, bgGrad:"linear-gradient(145deg,#f0f7fd,#eaf4fb)"
   },
   {
-    id:25, name:"Charcoal Detox Scrub", sku:"PLSF 2408", cat:"Scrubs", price:40,
+    id:25, name:"Charcoal Detox Scrub", sku:"PLSF 2408", cat:"Face Care", price:40,
     vol:"100 g · 3.52 oz", organic:"62.90%",
     claims:["Charcoal Detox","Pore Purifying","Deep Cleanse"],
     icons:[{svg:"search",label:"PURIFY"},{svg:"circle-dots",label:"EXFOLIATE"},{svg:"drop",label:"DETOX"}],
@@ -1061,7 +1057,7 @@ const products = [
     featured:true, bgGrad:"linear-gradient(145deg,#e8f3fb,#ddeef9)"
   },
   {
-    id:26, name:"Coffee Awakening Scrub", sku:"PLSF 2409", cat:"Scrubs", price:34,
+    id:26, name:"Coffee Awakening Scrub", sku:"PLSF 2409", cat:"Face Care", price:34,
     vol:"100 g · 3.52 oz", organic:"58.40%",
     claims:["Coffee Polish","Invigorating Scrub","Smoothing Care"],
     icons:[{svg:"circle-dots",label:"EXFOLIATE"},{svg:"refresh",label:"AWAKEN"},{svg:"wave",label:"SMOOTH"}],
@@ -1072,7 +1068,7 @@ const products = [
     featured:false, bgGrad:"linear-gradient(145deg,#e0eff9,#eaf4fb)"
   },
   {
-    id:27, name:"Willow Bark Smoothing Scrub", sku:"PLSF 2410", cat:"Scrubs", price:36,
+    id:27, name:"Willow Bark Smoothing Scrub", sku:"PLSF 2410", cat:"Face Care", price:36,
     vol:"100 g · 3.52 oz", organic:"68.75%",
     claims:["BHA Exfoliation","Clarifying Scrub","Matte Finish"],
     icons:[{svg:"search",label:"CLARIFY"},{svg:"circle-dots",label:"EXFOLIATE"},{svg:"balance",label:"BALANCE"}],
@@ -1083,7 +1079,7 @@ const products = [
     featured:false, bgGrad:"linear-gradient(145deg,#eaf4fb,#f0f7fd)"
   },
   {
-    id:28, name:"Niacinamide Glow Serum", sku:"PLSF 2411", cat:"Serums", price:48,
+    id:28, name:"Niacinamide Glow Serum", sku:"PLSF 2411", cat:"Face Care", price:48,
     vol:"30 ml · 1.01 fl.oz", organic:"81.60%",
     claims:["Niacinamide Serum","Glow Boost","Pore Refining"],
     icons:[{svg:"sparkle",label:"GLOW"},{svg:"search",label:"REFINE"},{svg:"drop",label:"HYDRATE"}],
@@ -1094,7 +1090,7 @@ const products = [
     featured:true, bgGrad:"linear-gradient(145deg,#f0f7fd,#ddeef9)"
   },
   {
-    id:29, name:"Stem Cell Renewal Serum", sku:"PLSF 2412", cat:"Serums", price:72,
+    id:29, name:"Stem Cell Renewal Serum", sku:"PLSF 2412", cat:"Face Care", price:72,
     vol:"30 ml · 1.01 fl.oz", organic:"77.30%",
     claims:["Stem Cell Serum","Renewal Care","Firming Support"],
     icons:[{svg:"refresh",label:"RENEW"},{svg:"face",label:"FIRM"},{svg:"shield",label:"REPAIR"}],
@@ -1105,7 +1101,7 @@ const products = [
     featured:false, bgGrad:"linear-gradient(145deg,#ddeef9,#e8f3fb)"
   },
   {
-    id:30, name:"Argan Nourish Serum", sku:"PLSF 2413", cat:"Serums", price:52,
+    id:30, name:"Argan Nourish Serum", sku:"PLSF 2413", cat:"Face Care", price:52,
     vol:"30 ml · 1.01 fl.oz", organic:"85.20%",
     claims:["Argan Serum","Deep Nourish","Restoring Care"],
     icons:[{svg:"leaf",label:"NOURISH"},{svg:"drop",label:"RESTORE"},{svg:"cloud",label:"SOFTEN"}],
@@ -1116,7 +1112,7 @@ const products = [
     featured:false, bgGrad:"linear-gradient(145deg,#e8f3fb,#f2f8fc)"
   },
   {
-    id:31, name:"Peptide Firming Serum", sku:"PLSF 2414", cat:"Serums", price:64,
+    id:31, name:"Peptide Firming Serum", sku:"PLSF 2414", cat:"Face Care", price:64,
     vol:"30 ml · 1.01 fl.oz", organic:"73.50%",
     claims:["Peptide Serum","Firming Care","Elasticity Support"],
     icons:[{svg:"arrow-up",label:"FIRM"},{svg:"wave",label:"SMOOTH"},{svg:"refresh",label:"RENEW"}],
@@ -1127,7 +1123,7 @@ const products = [
     featured:false, bgGrad:"linear-gradient(145deg,#eaf4fb,#f5fafd)"
   },
   {
-    id:32, name:"Witch Hazel Clarifying Serum", sku:"PLSF 2415", cat:"Serums", price:44,
+    id:32, name:"Witch Hazel Clarifying Serum", sku:"PLSF 2415", cat:"Face Care", price:44,
     vol:"30 ml · 1.01 fl.oz", organic:"79.80%",
     claims:["Clarifying Serum","Blemish Care","Oil Control"],
     icons:[{svg:"search",label:"CLARIFY"},{svg:"balance",label:"BALANCE"},{svg:"drop",label:"SOOTHE"}],
@@ -1138,7 +1134,7 @@ const products = [
     featured:false, bgGrad:"linear-gradient(145deg,#e0eff9,#eaf4fb)"
   },
   {
-    id:33, name:"Honey Glow Mask", sku:"PLSF 2416", cat:"Masks", price:46,
+    id:33, name:"Honey Glow Mask", sku:"PLSF 2416", cat:"Face Care", price:46,
     vol:"100 g · 3.52 oz", organic:"69.40%",
     claims:["Honey Mask","Glow Support","Nourishing Care"],
     icons:[{svg:"sparkle",label:"GLOW"},{svg:"leaf",label:"NOURISH"},{svg:"cloud",label:"SOFTEN"}],
@@ -1149,7 +1145,7 @@ const products = [
     featured:false, bgGrad:"linear-gradient(145deg,#f0f7fd,#eaf4fb)"
   },
   {
-    id:34, name:"Spirulina Detox Mask", sku:"PLSF 2417", cat:"Masks", price:42,
+    id:34, name:"Spirulina Detox Mask", sku:"PLSF 2417", cat:"Face Care", price:42,
     vol:"100 g · 3.52 oz", organic:"55.60%",
     claims:["Spirulina Detox","Green Superfood","Pore Purifying"],
     icons:[{svg:"leaf",label:"DETOX"},{svg:"drop",label:"PURIFY"},{svg:"search",label:"REFINE"}],
@@ -1160,7 +1156,7 @@ const products = [
     featured:false, bgGrad:"linear-gradient(145deg,#e8f3fb,#ddeef9)"
   },
   {
-    id:35, name:"Pomegranate Bright Mask", sku:"PLSF 2418", cat:"Masks", price:48,
+    id:35, name:"Pomegranate Bright Mask", sku:"PLSF 2418", cat:"Face Care", price:48,
     vol:"100 g · 3.52 oz", organic:"63.80%",
     claims:["Pomegranate Mask","Brightening Care","Even Tone"],
     icons:[{svg:"sun",label:"BRIGHTEN"},{svg:"sparkle",label:"GLOW"},{svg:"shield",label:"DEFEND"}],
@@ -1171,7 +1167,7 @@ const products = [
     featured:true, bgGrad:"linear-gradient(145deg,#eaf4fb,#f5fafd)"
   },
   {
-    id:36, name:"Collagen Lift Mask", sku:"PLSF 2419", cat:"Masks", price:54,
+    id:36, name:"Collagen Lift Mask", sku:"PLSF 2419", cat:"Face Care", price:54,
     vol:"100 g · 3.52 oz", organic:"58.20%",
     claims:["Collagen Mask","Firming Care","Lift Support"],
     icons:[{svg:"face",label:"FIRM"},{svg:"arrow-up",label:"LIFT"},{svg:"refresh",label:"RENEW"}],
@@ -1182,7 +1178,7 @@ const products = [
     featured:false, bgGrad:"linear-gradient(145deg,#ddeef9,#e8f3fb)"
   },
   {
-    id:37, name:"Superfood Calm Mask", sku:"PLSF 2420", cat:"Masks", price:40,
+    id:37, name:"Superfood Calm Mask", sku:"PLSF 2420", cat:"Face Care", price:40,
     vol:"100 g · 3.52 oz", organic:"61.50%",
     claims:["Superfood Mask","Calming Care","Hydration Boost"],
     icons:[{svg:"shield",label:"CALM"},{svg:"leaf",label:"NOURISH"},{svg:"drop",label:"HYDRATE"}],
