@@ -1193,10 +1193,30 @@ const products = [
 // ══════════════════════════════════════════
 // CART STATE
 // ══════════════════════════════════════════
+const CART_STORAGE_KEY = 'azuria:cart';
 let cart = [];
 let currentPdpId = null;
 let pdpQty = 1;
 let pdpFromShop = false;
+
+function loadCartFromStorage() {
+  try {
+    const raw = localStorage.getItem(CART_STORAGE_KEY);
+    if (!raw) return;
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return;
+    const validIds = new Set(products.map(p => p.id));
+    cart = parsed
+      .filter(item => item && validIds.has(item.id) && item.qty > 0)
+      .map(item => ({ id: item.id, qty: Math.max(1, Math.floor(item.qty)) }));
+  } catch {}
+}
+
+function saveCartToStorage() {
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
+  } catch {}
+}
 
 // ══════════════════════════════════════════
 // SVG ICON HELPER
@@ -1337,6 +1357,7 @@ function addToCart(id, qty) {
   const existing = cart.find(x=>x.id===id);
   if(existing) existing.qty += qty;
   else cart.push({id, qty});
+  saveCartToStorage();
   updateCartBadge();
   renderCartItems();
   showToast(`${p.name} added to bag`);
@@ -1349,6 +1370,7 @@ function addToCart(id, qty) {
 
 function removeFromCart(id) {
   cart = cart.filter(x => x.id !== id);
+  saveCartToStorage();
   updateCartBadge();
   renderCartItems();
 }
@@ -1357,6 +1379,7 @@ function updateCartItemQty(id, delta) {
   const item = cart.find(x=>x.id===id);
   if(!item) return;
   item.qty = Math.max(1, item.qty + delta);
+  saveCartToStorage();
   updateCartBadge();
   renderCartItems();
   if (delta > 0) {
@@ -1731,6 +1754,8 @@ function initReveal() {
 // ══════════════════════════════════════════
 renderFeatured();
 initReveal();
+loadCartFromStorage();
+updateCartBadge();
 
 // Boot from current hash (supports direct links & refreshes)
 const initialHash = window.location.hash || '#/';
