@@ -33,10 +33,11 @@ nav.scrolled{padding:14px 60px;box-shadow:0 2px 40px rgba(100,160,200,.08)}
 .nav-links a:hover{color:var(--navy)}
 .nav-links a:hover::after{width:100%}
 .nav-right{display:flex;align-items:center;gap:20px}
-.nav-cart-btn{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--slate);cursor:pointer;transition:color .3s;background:none;border:none;font-family:var(--sans);position:relative}
-.nav-cart-btn:hover{color:var(--navy)}
-.cart-badge{display:none;position:absolute;top:-6px;right:-10px;width:16px;height:16px;background:var(--navy);color:white;border-radius:50%;font-size:9px;align-items:center;justify-content:center}
-.cart-badge.show{display:flex}
+.nav-cart-btn{display:flex;align-items:center;justify-content:center;width:42px;height:42px;padding:0;color:var(--slate);cursor:pointer;transition:color .3s,background .3s;background:none;border:none;border-radius:50%;position:relative;font-family:var(--sans)}
+.nav-cart-btn:hover{color:var(--navy);background:rgba(194,221,240,.32)}
+.nav-cart-icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.cart-badge{display:none;position:absolute;top:5px;right:3px;min-width:16px;height:16px;padding:0 4px;background:var(--navy);color:white;border-radius:999px;font-size:9px;font-weight:500;line-height:16px;text-align:center;letter-spacing:0;box-sizing:border-box}
+.cart-badge.show{display:flex;align-items:center;justify-content:center}
 
 /* ── VIEWS ── */
 .view{display:none}
@@ -352,7 +353,10 @@ footer{background:var(--deep);color:rgba(255,255,255,.55);padding:72px 60px 40px
 .nav-mobile-menu.open{display:flex}
 .nav-mobile-menu a{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--navy);text-decoration:none;letter-spacing:2px;cursor:pointer}
 .nav-mobile-menu a:hover{color:var(--slate)}
-.nav-mobile-cart{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--slate);cursor:pointer;background:none;border:none;font-family:var(--sans);margin-top:20px;position:relative}
+.nav-mobile-cart{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:52px;height:52px;color:var(--slate);cursor:pointer;background:rgba(194,221,240,.2);border:1px solid var(--glass-border);border-radius:50%;font-family:var(--sans);margin-top:20px;position:relative;transition:color .3s,background .3s,border-color .3s}
+.nav-mobile-cart:hover{color:var(--navy);background:rgba(194,221,240,.45);border-color:var(--azure)}
+.nav-mobile-cart .nav-cart-icon{width:22px;height:22px}
+.nav-mobile-cart .cart-badge{top:2px;right:2px}
 
 /* ── MOBILE RESPONSIVE ── */
 @media (max-width: 768px) {
@@ -489,8 +493,11 @@ footer{background:var(--deep);color:rgba(255,255,255,.55);padding:72px 60px 40px
     <li><a onclick="showView('home');setTimeout(()=>document.getElementById('about-section').scrollIntoView({behavior:'smooth'}),80)">About</a></li>
   </ul>
   <div class="nav-right">
-    <button class="nav-cart-btn" onclick="openCart()">
-      Bag
+    <button class="nav-cart-btn" onclick="openCart()" aria-label="Open bag">
+      <svg class="nav-cart-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 9h12l-1 12H7L6 9z"/>
+        <path d="M9 9V7a3 3 0 0 1 6 0v2"/>
+      </svg>
       <span class="cart-badge" id="cartBadge">0</span>
     </button>
   </div>
@@ -505,8 +512,12 @@ footer{background:var(--deep);color:rgba(255,255,255,.55);padding:72px 60px 40px
   <a onclick="showView('home');closeMobileMenu();setTimeout(()=>document.getElementById('ritual-section').scrollIntoView({behavior:'smooth'}),80)">Ritual</a>
   <a onclick="showView('home');closeMobileMenu();setTimeout(()=>document.getElementById('ingredients-section').scrollIntoView({behavior:'smooth'}),80)">Ingredients</a>
   <a onclick="showView('home');closeMobileMenu();setTimeout(()=>document.getElementById('about-section').scrollIntoView({behavior:'smooth'}),80)">About</a>
-  <button class="nav-mobile-cart" onclick="closeMobileMenu();openCart()">
-    Bag <span class="cart-badge" id="cartBadgeMobile" style="position:relative;top:auto;right:auto;display:inline-flex;opacity:0"></span>
+  <button class="nav-mobile-cart" onclick="closeMobileMenu();openCart()" aria-label="Open bag">
+    <svg class="nav-cart-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6 9h12l-1 12H7L6 9z"/>
+      <path d="M9 9V7a3 3 0 0 1 6 0v2"/>
+    </svg>
+    <span class="cart-badge" id="cartBadgeMobile">0</span>
   </button>
 </div>
 
@@ -1402,7 +1413,7 @@ function updateCartBadge() {
   const mobileBadge = document.getElementById('cartBadgeMobile');
   if(mobileBadge) {
     mobileBadge.textContent = total;
-    mobileBadge.style.opacity = total > 0 ? '1' : '0';
+    mobileBadge.classList.toggle('show', total > 0);
   }
 }
 
